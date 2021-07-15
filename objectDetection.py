@@ -57,7 +57,6 @@ def check_for_track(position):  # This function take as input the box of the veh
                 track_found = True
                 track.alive = 0
                 break
-        track.alive += 1
 
     if not track_found:
         new_track = Track()
@@ -150,14 +149,14 @@ def main():
                     xmax = int(obj[5] * frame_w)
                     ymax = int(obj[6] * frame_h)
                     class_id = int(obj[1])
-                    # Draw box 
+                    # Draw box
                     position = [xmin, ymin, xmax, ymax]
                     check_for_track(position)  # Checking for a track to thins vehicle
                     cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 2)
-                    
+
             # Drawing all the tracks except for these who died
             for track in Tracks:
-                if track.alive < 10:
+                if track.alive < 20:
                     draw_tracks(track, frame)
                     track.alive += 1
                 else:
